@@ -1,4 +1,4 @@
-webinos-api-dashboard
-=====================
+webinos-dashboard
+=================
 
 Dashboard API of webinos
