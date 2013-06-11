@@ -88,16 +88,6 @@
                 }
             );
         };
-        this.test = function(params){
-            var rpc = rpcHandler.createRPC('Dashboard', 'test', params);
-            webinos.rpcHandler.executeRPC(rpc,
-                function (params){
-                    console.log('**********');
-                    console.log('test', params);
-                    console.log('**********');
-                }
-            );
-        };
     };
 
     webinos.dashboard = new Dashboard(webinos.rpcHandler);
