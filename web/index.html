@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>Webinos Settings</title>
+    <link rel="stylesheet" href="static/main.css">
+
+    <script type="text/javascript" src="/webinos.js"></script>
+    <script type="text/javascript" src="static/libs/list.min.js"></script>
+    <script type="text/javascript" src="static/libs/hammer.min.js"></script>
+    <script type="text/javascript" src="static/libs/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="static/main.js"></script>
+
+    {head|s}
+
+</head>
+<body>
+<img class="webinoslogo" src="static/img/webinosWithBorder.png">
+
+<div class="header">
+    <div id="show-menu" class="header-left-button"><span class="notification-icon">2</span></div>
+    <img class="webinoslogo-header" src="static/img/webinosWithBorder.png">
+
+    <div class="title">SETTINGS</div>
+    <div id="show-actions" class="header-right-button"></div>
+</div>
+{?modules}
+<div class="header menu" id="menu">
+    {#modules}{@if cond="'{showNavigation}'"}
+    <div{@if cond="'{name}' == '{currentModule}'"} class='selected'{/if}><a href='{@linkTo module="{name}" /}'>{title}</a></div>
+    {/if}{/modules}
+</div>
+{/modules}
+
+<div class="content-container">
+    <div class="content" style="display: block">
+        {?content}
+        {content|s}
+        {:else}
+        Select a module on the left menu or <a href="/dashboard/static/test.html">try some demos</a>.
+        {/content}
+    </div>
+</div>
+
+<div id="toolbar" class="header toolbar">
+
+</div>
+
+<div id="menu_overlay"></div>
+
+</body>
+</html>
