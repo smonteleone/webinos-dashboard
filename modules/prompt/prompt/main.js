@@ -100,7 +100,7 @@ var drawPrompts = function() {
 	document.getElementById('newUserReqName').innerHTML = UIdata.user.name;
 	document.getElementById('newUserReqNameInfo1').innerHTML = UIdata.user.name;
 	document.getElementById('newUserReqNameInfo2').innerHTML = UIdata.user.name;
-	document.getElementById('newUserReqImg').src = 'img/'+UIdata.user.img;
+	document.getElementById('newUserReqImg').src = 'prompt/img/'+UIdata.user.img;
 
 	var permissionsListContainer = document.getElementById('user-permission-list-container'),
 		permissions = UIdata.permissions,
