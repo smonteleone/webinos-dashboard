@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <script type="text/javascript" src="/webinos.js"></script>
+    <script type="text/javascript">
+        function openDashboard(){
+            webinos.dashboard.open(null, function(){console.log("***Dashboard opened");});
+        }
+        function openHelloWorld(){
+            webinos.dashboard
+                    .open({module:'helloworld'}, function(){console.log("***helloworld opened");})
+                    .onAction(function(data){alert(data.result);});
+        }
+        function openEnroll(){
+            webinos.dashboard.open({module:'enrollment'}, function(){console.log("***enrollment opened");});
+        }
+        function openUI(){
+            webinos.dashboard.open({module:'ui'}, function(){console.log("***UI opened");});
+        }
+        function openExplorer(){
+            webinos.dashboard
+                    .open({module:'explorer',data:{}}, function(){console.log("***Dashboard opened");})
+                    .onAction(function(data){alert("Selected Service:\nAPI: "+data.result.api+"\nADR: "+data.result.address);});
+        }
+        function openExplorerWithFilter(){
+            webinos.dashboard
+                    .open({
+                        module:'explorer',
+                        data:{
+                            service:'http://webinos.org/api/test'
+                        }
+                    }, function(){console.log("***Dashboard opened");})
+                    .onAction(function(data){alert("Selected Service:\nADR: "+data.result.address);});
+        }
+        function promptUser(){
+            var args = {};
+            args.user = "cbot";
+            args.feature = "myFeature";
+            args.choices = "0|1|2|3|4|5";
+            args.timeout = 10000;
+            webinos.dashboard
+                    .open({module:'prompt', data:args}, function(){console.log("***Dashboard opened");})
+                    .onAction(function(data){alert("Data send from Dashboard:\n"+JSON.stringify(data.result,""," "));});
+        }
+    </script>
+</head>
+<body>
+<button onclick="openDashboard()">Open dashboard</button><br/>
+<button onclick="openExplorer()">Open dashboard's explorer</button><br/>
+<button onclick="openExplorerWithFilter()">Open dashboard's explorer with Get32 Filter</button><br/>
+<button onclick="openEnroll()">Open dashboard's enrollment</button><br/>
+<button onclick="openHelloWorld()">Open dashboard's HelloWorld</button><br/>
+<button onclick="promptUser()">Prompt user</button>
+</br>
+</br><a href="/dashboard/dustjs-linkedin/test/test.html">DustJS Testbed</a>
+</br><a href="/dashboard/ui/dashboard2/">Dashboard UI template</a>
+</body>
+</html>
