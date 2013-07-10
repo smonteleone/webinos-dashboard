@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="/webinos.js"></script>
+    <!--head-->
+    <script>
+        webinos.session.addListener("registeredBrowser", function () {
+            var pzhAddress = webinos.session.getPzhWebAddress();
+            window.location = pzhAddress + "connectPzh";
+        });
+    </script>
+    <!--/head-->
+</head>
+<body>
+<!--content-->
+    Please wait while you are redirected to your PZH
+<!--/content-->
+</body>
+</html>
