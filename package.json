@@ -1,16 +1,16 @@
 {
-    "name": "webinos-api-dashboard",
+    "name": "webinos-dashboard",
     "publishConfig": {
         "tag": "alpha"
     },
     "description": "Dashboard API",
     "keywords": [ "webinos", "dashboard", "API"],
-    "version": "0.0.1",
+    "version": "0.1.0",
     "homepage": "http://webinos.org/",
     "author": "Christos Botsikas",
     "repository": {
         "type": "git",
-        "url": "git://github.com/webinos/webinos-api-dashboard.git"
+        "url": "git://github.com/cbotsikas/webinos-dashboard.git"
     },
     "bugs": {
         "email": "webinos-wp4-ml@fokus.fraunhofer.de",
