@@ -1,33 +1,35 @@
 {
-    "name": "webinos-dashboard",
-    "publishConfig": {
-        "tag": "alpha"
-    },
-    "description": "Dashboard API",
-    "keywords": [ "webinos", "dashboard", "API"],
-    "version": "0.1.0",
-    "homepage": "http://webinos.org/",
-    "author": "Christos Botsikas",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/cbotsikas/webinos-dashboard.git"
-    },
-    "bugs": {
-        "email": "webinos-wp4-ml@fokus.fraunhofer.de",
-        "url": ""
-    },
-    "directories": {
-        "lib": "./lib"
-    },
-    "main": "./lib/main.js",
-    "dependencies": {
-        "dustjs-linkedin": "*",
-        "dustjs-helpers": "*"
-
-    },
-    "optionalDependencies": {
-        "node-uuid": "1.3.x"
-    },
-    "bundleDependencies": [
-    ]
+  "name": "webinos-dashboard",
+  "publishConfig": {
+    "tag": "alpha"
+  },
+  "description": "Dashboard API",
+  "keywords": [
+    "webinos",
+    "dashboard",
+    "API"
+  ],
+  "version": "0.1.1",
+  "homepage": "http://webinos.org/",
+  "author": "Christos Botsikas",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cbotsikas/webinos-dashboard.git"
+  },
+  "bugs": {
+    "email": "webinos-wp4-ml@fokus.fraunhofer.de",
+    "url": ""
+  },
+  "directories": {
+    "lib": "./lib"
+  },
+  "main": "./lib/main.js",
+  "dependencies": {
+    "dustjs-linkedin": "*",
+    "dustjs-helpers": "*"
+  },
+  "optionalDependencies": {
+    "node-uuid": "1.3.x"
+  },
+  "bundleDependencies": []
 }
