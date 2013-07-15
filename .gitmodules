@@ -1,3 +1,0 @@
-[submodule "modules/dashboard-explorer"]
-	path = modules/dashboard-explorer
-	url = https://github.com/paolovergori/webinos-dashboard-explorer.git
