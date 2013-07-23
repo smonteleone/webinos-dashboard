@@ -1,5 +1,12 @@
 function selectService(api, address, id){
-    webinos.dashboard.actionComplete({api:api, address:address, id:id}, function(){window.close();});
+    webinos.dashboard.actionComplete(
+        {api:api, address:address, id:id},
+        function(){
+            //Hack needed for some chrome versions that do not close the tab.
+            //http://productforums.google.com/forum/#!topic/chrome/GjsCrvPYGlA
+            window.open('', '_self', '');
+            window.close();
+        });
 }
 
 function refresh(){
