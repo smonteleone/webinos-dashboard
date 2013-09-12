@@ -29,14 +29,16 @@ function fillConnectedDevices(){
             '</li>');
         document.getElementById(webinos.session.getConnectedDevices()[i].id+'_pzh').style.color = (webinos.session.getConnectedDevices()[i].connected == true) ? "green" : "red";
         document.getElementById(webinos.session.getConnectedDevices()[i].id+'_pzh').style.fontWeight = "bold";
-        
-        for(var j=0;j<webinos.session.getConnectedDevices()[i].pzp.length;j++){
-            $("[id='"+webinos.session.getConnectedDevices()[i].pzp[j].id.split("/")[0]+"_pzp']").append(
-                '<li class="pzp">' +
-                '<span id="'+ webinos.session.getConnectedDevices()[i].pzp[j].id +'_pzp">' + webinos.session.getConnectedDevices()[i].pzp[j].friendlyName +'</span>' +
-                '<ol class="services" id="' + webinos.session.getConnectedDevices()[i].pzp[j].id +'"></ol>' +
-                '</li>');
-            document.getElementById(webinos.session.getConnectedDevices()[i].pzp[j].id+'_pzp').style.color = (webinos.session.getConnectedDevices()[i].pzp[j].connected == true) ? "green" : "red";
+
+        if (webinos.session.getConnectedDevices()[i].pzp) { // only loop if exists. If not enrolled, it doesn't.
+            for(var j=0;j<webinos.session.getConnectedDevices()[i].pzp.length;j++){
+                $("[id='"+webinos.session.getConnectedDevices()[i].pzp[j].id.split("/")[0]+"_pzp']").append(
+                    '<li class="pzp">' +
+                    '<span id="'+ webinos.session.getConnectedDevices()[i].pzp[j].id +'_pzp">' + webinos.session.getConnectedDevices()[i].pzp[j].friendlyName +'</span>' +
+                    '<ol class="services" id="' + webinos.session.getConnectedDevices()[i].pzp[j].id +'"></ol>' +
+                    '</li>');
+                document.getElementById(webinos.session.getConnectedDevices()[i].pzp[j].id+'_pzp').style.color = (webinos.session.getConnectedDevices()[i].pzp[j].connected == true) ? "green" : "red";
+            }
         }
     }
     fillServices();
