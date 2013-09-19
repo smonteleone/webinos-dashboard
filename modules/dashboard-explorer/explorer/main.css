@@ -1,0 +1,223 @@
+#explorerView {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    border-top: 1px solid #7f7f7f;
+}
+
+.entry {
+    display: block;
+    /*min-height: 30px;*/
+    position: relative;
+    border-bottom: 1px solid #7f7f7f;
+    cursor: default;
+    /*padding-top: 3px;*/
+    /*padding-bottom: 3px;*/
+}
+
+.entry_content {
+    min-height: 30px;
+    display: block;
+    position: relative;
+    padding: 3px;
+}
+.selectable .entry_content {
+    margin-right: 30px;
+}
+.refreshable .entry_content {
+    margin-right: 30px;
+}
+.selectable.refreshable .entry_content {
+    margin-right: 60px;
+}
+.entry.selectable.one-action:hover{
+    background-color: rgba(225, 230, 50, 0.69);
+}
+.entry.togglable.one-action:hover{
+    background-color: rgba(225, 230, 50, 0.69);
+}
+.entry.selectable:not(.one-action) > div:hover {
+    background-color: rgba(225, 230, 50, 0.69);
+}
+.entry.togglable:not(.one-action) > div:hover {
+    background-color: rgba(225, 230, 50, 0.69);
+}
+
+.lebel {
+    display: block;
+}
+.btn {
+    position: absolute;
+    float: right;
+    height: 100%;
+    width: 30px;
+}
+
+.togglable .btn {
+    border-left: 1px solid #7f7f7f;
+    width: 29px;
+}
+
+.btn .icon {
+    margin-left: 5px;
+}
+
+.service .entry_content {
+    min-height: 40px;
+}
+
+.person .entry_content{
+    padding-left: 52px;
+}
+
+
+.device .entry_content {
+    padding-left: 82px;
+}
+.service .entry_content {
+    padding-left: 112px;
+}
+
+.online {
+    color: forestgreen;
+}
+
+.service .description{
+    font-size: 0.7em;
+    font-style: italic;
+}
+
+.list {
+    display: none;
+}
+
+.list.opened {
+    display: block;
+}
+
+.icon {
+    display: block;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 50%;
+}
+.togglable, .selectable {
+    cursor: pointer;
+}
+
+.status {
+    width: 28px;
+    height: 28px;
+    margin-top: -14px;
+    left: 22px;
+}
+
+.device .status {
+    left: 52px;
+}
+
+.service .status {
+    left: 82px;
+}
+
+.person .status {
+    background-image: url("images/user_red.png");
+}
+
+.person .status.online{
+    background-image: url("images/user_green.png");
+}
+
+.pzp .status {
+    background-image: url("images/mobile_red.png");
+}
+
+.pzp .status.online{
+    background-image: url("images/mobile_green.png");
+}
+
+.pzh .status {
+    background-image: url("images/share_red.png");
+}
+
+.pzh .status.online{
+    background-image: url("images/share_green.png");
+}
+
+.service .status {
+    background-image: url("images/api_red.png");
+}
+
+.service .status.online{
+    background-image: url("images/api_green.png");
+}
+
+.toggle {
+    display: none !important;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    left: 0px;
+    background-image: url("images/arrow_expand.png");
+}
+/*.selectable.togglable .toggle {*/
+    /*right:22px;*/
+/*}*/
+/*.selectable.togglable.refreshable .toggle {*/
+    /*right:44px;*/
+/*}*/
+
+.selectable.refreshable .refresh {
+    right:25px;
+}
+/*.togglable.refreshable .refresh {*/
+    /*right:22px;*/
+/*}*/
+
+.togglable.open .toggle {
+    background-image: url("images/arrow_collapse.png");
+}
+
+.togglable .toggle {
+    display: inherit !important;
+}
+
+.refresh {
+    display: none !important;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    right: 0px;
+    background-image: url("images/loop.png");
+}
+.refreshable .refresh {
+    display: inherit !important;
+}
+.select{
+    display: none !important;
+    right: 0px;
+}
+.select .icon {
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    background-image: url("images/radio_unchecked.png");
+}
+.selectable.checked {
+    /*background-color: #c8d5e0;*/
+    background-color: rgba(200,213,224,.5);
+}
+
+.selectable.checked  .select .icon {
+    background-image: url("images/radio_checked.png");
+}
+
+.multiselect .selectable .select .icon{
+    background-image: url("images/checkbox_unchecked.png");
+}
+.multiselect .selectable.checked .select .icon{
+    background-image: url("images/checkbox_checked.png");
+}
+
+.selectable .select {
+    display: inherit !important;
+}
