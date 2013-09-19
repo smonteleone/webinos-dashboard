@@ -28,6 +28,9 @@ Result is always an array of objects containing the selections. The properties o
 - *id*
 - *type*
 - *friendlyName*
-- *api* _(only if the type is service)_
-- *address* _(only if the type is service)_
-- *deviceType* _(only if the type is device)_
+- *api* <br/>
+(only if the type is service)
+- *address* <br/>
+(only if the type is service)
+- *deviceType* <br/>
+(only if the type is device)
