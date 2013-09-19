@@ -21,7 +21,7 @@
         function openExplorer(){
             webinos.dashboard
                     .open({module:'explorer',data:{}}, function(){console.log("***Dashboard opened");})
-                    .onAction(function(data){alert("Selected Service:\nAPI: "+data.result.api+"\nADR: "+data.result.address);});
+                    .onAction(alertDataFromExplorer);
         }
         function openExplorerWithFilter(){
             webinos.dashboard
@@ -31,7 +31,70 @@
                             service:'http://webinos.org/api/test'
                         }
                     }, function(){console.log("***Dashboard opened");})
-                    .onAction(function(data){alert("Selected Service:\nADR: "+data.result.address);});
+                    .onAction(alertDataFromExplorer);
+        }
+        function openExplorerWithFilters(){
+            webinos.dashboard
+                    .open({
+                        module:'explorer',
+                        data:{
+                            service:['http://webinos.org/api/test', 'http://webinos.org/api/applauncher']
+                        }
+                    }, function(){console.log("***Dashboard opened");})
+                    .onAction(alertDataFromExplorer);
+        }
+        function openExplorerWithFiltersMultiselect(){
+            webinos.dashboard
+                    .open({
+                        module:'explorer',
+                        data:{
+                            service:['http://webinos.org/api/test', 'http://webinos.org/api/applauncher'],
+                            multiselect:true
+                        }
+                    }, function(){console.log("***Dashboard opened");})
+                    .onAction(alertDataFromExplorer);
+        }
+        function openExplorerWithMultiselect(){
+            webinos.dashboard
+                    .open({
+                        module:'explorer',
+                        data:{
+                            multiselect:true
+                        }
+                    }, function(){console.log("***Dashboard opened");})
+                    .onAction(alertDataFromExplorer);
+        }
+        function openExplorerWithSelectDevices(){
+            webinos.dashboard
+                    .open({
+                        module:'explorer',
+                        data:{
+                            show: "devices", //"people", "devices", "services"
+                            select: "devices" //"people", "devices", "services", "none"
+                        }
+                    }, function(){console.log("***Dashboard opened");})
+                    .onAction(alertDataFromExplorer);
+        }
+        function openExplorerWithSelectPeople(){
+            webinos.dashboard
+                    .open({
+                        module:'explorer',
+                        data:{
+                            show: "services", //"people", "devices", "services"
+                            select: "people" //"people", "devices", "services", "none"
+                        }
+                    }, function(){console.log("***Dashboard opened");})
+                    .onAction(alertDataFromExplorer);
+        }
+        function alertDataFromExplorer(data){
+            var msg = "Selected Data (" + data.result.length + "):\n";
+            for (var i in data.result){
+                for (var j in data.result[i]){
+                    msg+= "\n"+j+": "+data.result[i][j];
+                }
+                msg+= "\n------";
+            }
+            alert(msg);
         }
         function promptUser(){
             var args = {};
@@ -48,7 +111,12 @@
 <body>
 <button onclick="openDashboard()">Open dashboard</button><br/>
 <button onclick="openExplorer()">Open dashboard's explorer</button><br/>
-<button onclick="openExplorerWithFilter()">Open dashboard's explorer with Get32 Filter</button><br/>
+<button onclick="openExplorerWithFilter()">Open dashboard's explorer with Get42 Filter</button><br/>
+<button onclick="openExplorerWithFilters()">Open dashboard's explorer with Get42 + applauncher Filters</button><br/>
+<button onclick="openExplorerWithFiltersMultiselect()">Open dashboard's explorer with Get42 + applauncher Filters with multiselect on</button><br/>
+<button onclick="openExplorerWithMultiselect()">Open dashboard's explorer with multiselect on</button><br/>
+<button onclick="openExplorerWithSelectDevices()">Open dashboard's explorer showing up to devices, selecting devices</button><br/>
+<button onclick="openExplorerWithSelectPeople()">Open dashboard's explorer showing up to services, selecting people</button><br/>
 <button onclick="openEnroll()">Open dashboard's enrollment</button><br/>
 <button onclick="openHelloWorld()">Open dashboard's HelloWorld</button><br/>
 <button onclick="promptUser()">Prompt user</button>
