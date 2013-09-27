@@ -23,6 +23,10 @@ if ( document.addEventListener ) {
 var domObjs = {}; //a place to gather frequently used dom objects (+ onclick active class, and so on)
 
 function domReady () {
+	transformPrefixed = GetVendorPrefix(["transform", "msTransform", "MozTransform", "WebkitTransform", "OTransform"]);
+
+	enablePopups();
+
 	//header menu buttons + overlay
 	document.getElementById('show-menu').onclick = function(){toggleMenu('menu')};
 	document.getElementById('show-actions').onclick = function(){toggleMenu('actions')};
@@ -113,7 +117,7 @@ function GetVendorPrefix(arrayOfPrefixes) {
 
 	return null;
 }
-var transformPrefixed = GetVendorPrefix(["transform", "msTransform", "MozTransform", "WebkitTransform", "OTransform"]);
+var transformPrefixed;
 
 function showPopup(popup) {
 	domObjs.popupOverlay.style.top = document.body.scrollTop+'px'; //center
@@ -167,7 +171,9 @@ function showPage(linkId, type) {
 }
 
 function enableMenuAndInitFirstPage(id, type) {
-	var clickables = document.getElementById(id).children;
+  var el = document.getElementById(id);
+  if (el) {
+    var clickables = el.children;
 
 	var i = 0,
 	j = clickables.length;
@@ -192,6 +198,7 @@ function enableMenuAndInitFirstPage(id, type) {
 			showPage(clickables[i].id, type);
 		}
 	}
+  }
 };
 
 function drawPermissionButtons(container, buttons, active) {
@@ -304,6 +311,7 @@ function formatAMPM(date) {
 
 
 var enablePopups = function() {
+  try {
 	//init
 	domObjs.popupOverlay = document.getElementById('popup_overlay');
 	domObjs.popupContainer = document.getElementById('popup_container');
@@ -362,8 +370,10 @@ var enablePopups = function() {
 		domObjs.popupAddPermissionDetailsPage.style.display = 'block';
 	}
 	/* policy entity edit tabs END */
-
-}();
+  } catch (e) {
+    console.log("error during enable popups: " + e.message);
+  }
+};
 
 /*var toolbarShowHide = function() {
 	domObjs.toolbar = document.getElementById('toolbar');
@@ -410,11 +420,13 @@ function SwipeableTabs(elId, containerId) {
 	this.current_pos = 0;
 
 	this.init = function() {
+      if (this.container && this.tabs) {
 		this.initNeeded = true;
 		this.setDimensions();
 
 		window.addEventListener("orientationchange", function() { this.initNeeded = true; }, false);
 		window.addEventListener("resize", function() { this.initNeeded = true; }, false);
+      }
 	};
 
 	this.setDimensions = function() {
@@ -470,5 +482,7 @@ function SwipeableTabs(elId, containerId) {
 		}
 	}
 
+  if (this.container && this.tabs) {
 	Hammer(this.tabs, { drag_lock_to_axis: true }).on("touch dragleft dragright", handleHammer);
+  }
 }
