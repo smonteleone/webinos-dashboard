@@ -116,8 +116,8 @@ explorer = (function () {
             logWebinosSession();
 
             $('#explorerView').empty();
-            $('#status').html('STATUS:  ')
-                        .append(webinos.session.getPZPId() + ' is connected to ' + webinos.session.getPZHId());
+//            $('#status').html('STATUS:  ')
+//                        .append(webinos.session.getPZPId() + ' is connected to ' + webinos.session.getPZHId());
             this.fillConnectedDevices();
         },
         fillConnectedDevices: function () {
@@ -149,7 +149,7 @@ explorer = (function () {
             }
             if (options.show <= VIEW_STATES.devices){
                 var html = '';
-                html += '<div class="entry device ' + type + ' one-action" ' +
+                html += '<div class="entry device ' + type + ' ' + device.deviceType + ' one-action" ' +
                     'data-type="device" ' +
                     'data-device-type="' + type + '" ' +
                     'id="' + device.id + '" ' +
@@ -167,7 +167,7 @@ explorer = (function () {
                 html +=     '</div>';
                 html += '</div>';
                 var $entry = $(html);
-                if (device.connected == true) {
+                if (device.isConnected == true) {
                     $entry.addClass("online");
                     $("[id='person_" + personId + "']").toggleClass("online", true);
                 }
