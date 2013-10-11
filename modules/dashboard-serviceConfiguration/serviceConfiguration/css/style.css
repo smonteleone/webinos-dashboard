@@ -1,0 +1,6 @@
+.config {display : none}
+.expanderText {font-family:"Courier New", Courier, monospace;}
+.hidden {display: none;}
+
+fieldset {padding:5px; border: 0px;}
+fieldset.border {border: 1px solid;}
