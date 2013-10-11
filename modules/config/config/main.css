@@ -1,0 +1,24 @@
+.control-group {
+    padding-top: 10px;
+}
+
+.tab-content2 {
+    display: none;
+    padding-top: 40px;
+}
+
+#summary table td {
+    padding-right: 10px;
+    height: 30px;
+}
+#summary table tr > td:nth-child(2) {
+    font-weight: bold;
+}
+
+strong {
+    font-weight: bolder;
+}
+
+input {
+    width: 100%;
+}
