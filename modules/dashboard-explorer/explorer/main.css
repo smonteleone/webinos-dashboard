@@ -123,23 +123,64 @@
     background-image: url("images/user_red.png");
 }
 
-.person .status.online{
+.person.online .status{
     background-image: url("images/user_green.png");
 }
 
 .pzp .status {
+    background-image: url("images/unknown_red.png");
+}
+.pzp.online .status{
+    background-image: url("images/unknown_green.png");
+}
+.pzp.tv .status {
+    background-image: url("images/tv_red.png");
+}
+.pzp.tv.online .status{
+    background-image: url("images/tv_green.png");
+}
+.pzp.pc .status {
+    background-image: url("images/pc_red.png");
+}
+.pzp.pc.online .status{
+    background-image: url("images/pc_green.png");
+}
+.pzp.laptop .status {
+    background-image: url("images/laptop_red.png");
+}
+.pzp.laptop.online .status{
+    background-image: url("images/laptop_green.png");
+}
+.pzp.smartphone .status {
     background-image: url("images/mobile_red.png");
 }
-
-.pzp .status.online{
+.pzp.smartphone.online .status{
     background-image: url("images/mobile_green.png");
+}
+.pzp.tablet .status {
+    background-image: url("images/tablet_red.png");
+}
+.pzp.tablet.online .status{
+    background-image: url("images/tablet_green.png");
+}
+.pzp.car .status {
+    background-image: url("images/car_red.png");
+}
+.pzp.car.online .status{
+    background-image: url("images/car_green.png");
+}
+.pzp.iot .status {
+    background-image: url("images/iot_red.png");
+}
+.pzp.iot.online .status{
+    background-image: url("images/iot_green.png");
 }
 
 .pzh .status {
     background-image: url("images/share_red.png");
 }
 
-.pzh .status.online{
+.pzh.online .status{
     background-image: url("images/share_green.png");
 }
 
@@ -147,7 +188,7 @@
     background-image: url("images/api_red.png");
 }
 
-.service .status.online{
+.service.online .status{
     background-image: url("images/api_green.png");
 }
 

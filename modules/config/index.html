@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="/webinos.js"></script>
+  <!--head-->
+    <link rel="stylesheet" href="config/main.css">
+    <script type="text/javascript" src="config/js/config.js"></script>
+  <!--/head-->
+  <body>
+    <!--content-->
+        <div class="tabs" id="config-tabs" style="-webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+            <div id="tabTo-summary" class="selected">Summary</div>
+            <div id="tabTo-myDevice">My Device</div>
+            <div id="tabTo-enroll">Enroll</div>
+        </div>
+
+        <div id="summary" class="tab-content2" style="display: block;">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Device Name
+                        </td>
+                        <td>
+                            <span id="sumDeviceName"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Device Type
+                        </td>
+                        <td>
+                            <span id="sumDeviceType"></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Device Status
+                        </td>
+                        <td>
+                            <span id="sumDeviceStatus"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="myDevice" class="tab-content2" style="display: none;">
+            <form class="form-horizontal">
+                <p>
+                    You can select you desired device name and type. Note that you can't change them once you enroll the device to a Personal Zone Hub (PZH).
+                </p>
+                <div class="control-group">
+                    <label class="control-label">Name</label>
+                    <div class="controls">
+                        <input type="text" id="fldFriendlyName" placeholder="Friendly Name">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Type</label>
+                    <div class="controls">
+                        <select id="fldDeviceType">
+                            <option value="pc">PC</option>
+                            <option value="laptop">Laptop</option>
+                            <option value="smartphone">Smartphone</option>
+                            <option value="tablet">Tablet</option>
+                            <option value="tv">TV</option>
+                            <option value="car">Car</option>
+                            <option value="iot">IoT</option>
+                            <option value="unknown" selected>Unknown</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="button" id="btnSaveDevice" class="btn">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="enroll" class="tab-content2">
+            <div id="enrollDevice">
+            <form class="form-horizontal">
+                <p>
+                    Please select you Personal Zone Hub (PZH) provider where you want to enrol your device (PZP).
+                </p>
+                <p>
+                    Before enrolling, please make sure that you have set the device name and type. You will not be able to change them afterwards.
+                </p>
+                <div class="control-group">
+                    <label class="control-label">Select you PZH provider</label>
+                    <div class="controls">
+                        <select id="fldPzhProvider">
+                            <option value="pzh.webinos.org" selected>webinos.org</option>
+                            <option value="!custom">custom</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group" style="display: none;" id="customPzhProvider">
+                    <label class="control-label">Custom PZH</label>
+                    <div class="controls">
+                        <input type="text" id="fldPzhProviderCustom" placeholder="e.g. 192.168.1.1 or pzh.webinos.org">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="button" class="btn" id="btnEnroll">Enroll</button>
+                    </div>
+                </div>
+            </form>
+            </div>
+            <div id="resetDevice" style="display: none;">
+                <p>
+                    Your device is already enrolled.<br/>Registration to multiple PZHs is not supported.<br/>Consider deleting webinos config and starting over again.
+                </p>
+                <p>
+                    <strong>Warning:</strong> Clicking bellow will reset your device. This process can not be reversed.
+                </p>
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="button" class="btn" id="btnReset">Reset Device</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!--/content-->
+  </body>
+</html> 
