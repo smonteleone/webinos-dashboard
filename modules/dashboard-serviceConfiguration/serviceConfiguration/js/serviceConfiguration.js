@@ -71,13 +71,14 @@ function setConfiguration(apiName)
     }
 
     var errorCB = function (err) {
+        alert("Error while setting configuration.");
         console.log(err);
     }
 
     var rootNode = document.getElementById(apiName);
     var config = '{' + getConfiguration(rootNode) + '}';
     console.log("Config: " + config);
-    webinos.configuration.setAPIServicesConfiguration(apiName, JSON.parse(config).params, successCB, errorCB);
+    webinos.configuration.setAPIServicesConfiguration(apiName, JSON.parse(config).instancesParams, successCB, errorCB);
 
 ////    config = config.replace(/,+/g, ",");
 //    alert(config);
@@ -257,7 +258,9 @@ function toggleDiv(div, togglingElement){
 
 function fillAPIsList(){
 
-    var errorCB = function () {};
+    var errorCB = function () {
+        alert("Error while retrieving configuration.");
+    };
 
     var fillHeader = function (data) {
 
