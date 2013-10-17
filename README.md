@@ -34,3 +34,15 @@ Result is always an array of objects containing the selections. The properties o
 (only if the type is service)
 - *deviceType* <br/>
 (only if the type is device)
+
+
+### ServiceModule ###
+Module: "serviceConfiguration"
+
+#### Data ####
+- *params* <br/>
+Object containing information to configure a spefic API or null (see "params" element in config.json). A page to configure APIs (the one selected or all of them) will be shown in the dashboard.
+Default: "null"
+
+#### Result ####
+No result returned.
