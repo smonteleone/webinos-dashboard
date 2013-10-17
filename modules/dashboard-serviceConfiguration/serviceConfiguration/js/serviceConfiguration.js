@@ -64,7 +64,7 @@ function getConfiguration(refNode) {
 	return res.replace(/,+/g, ",").replace(/,+$/, "");
 }
 
-function setConfiguration(apiName)
+function setConfiguration(apiName, apiURI)
 {
     var successCB = function (data) {
         alert("Configuration set!");
@@ -78,7 +78,7 @@ function setConfiguration(apiName)
     var rootNode = document.getElementById(apiName);
     var config = '{' + getConfiguration(rootNode) + '}';
     console.log("Config: " + config);
-    webinos.configuration.setAPIServicesConfiguration(apiName, JSON.parse(config).instancesParams, successCB, errorCB);
+    webinos.configuration.setAPIServicesConfiguration(apiURI, JSON.parse(config).instances, successCB, errorCB);
 
 ////    config = config.replace(/,+/g, ",");
 //    alert(config);
@@ -267,7 +267,7 @@ function fillAPIsList(){
         var fillConfigurationData = function (data){
             console.log("config.json content: " + JSON.stringify(data.config));
             console.log("template.json content: " + JSON.stringify(data.template));
-            $('#' + data.apiName + '_config').append("<input type='button' onClick='javascript:setConfiguration(\"" + data.apiName + "\")' value='Set Configuration'>");
+            $('#' + data.apiName + '_config').append("<input type='button' onClick='javascript:setConfiguration(\"" + data.apiName + "\", \"" + data.config.apiURI + "\")' value='Set Configuration'>");
 
             div = document.getElementById(data.apiName + "_config");
             
