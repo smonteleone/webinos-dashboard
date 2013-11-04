@@ -298,6 +298,7 @@ $(document).ready(function () {
     $("#btn_submit").bind('click', explorer.submitResults);
     explorer.init();
     webinos.session.addListener('registeredBrowser', explorer.readOptions);
+    webinos.session.addListener('update', explorer.readOptions);
 });
 
 function logWebinosSession() {
