@@ -118,7 +118,7 @@ explorer = (function () {
             $('#explorerView').empty();
 //            $('#status').html('STATUS:  ')
 //                        .append(webinos.session.getPZPId() + ' is connected to ' + webinos.session.getPZHId());
-            this.fillConnectedDevices();
+            explorer.fillConnectedDevices();
         },
         fillConnectedDevices: function () {
             for (var i = 0; i < webinos.session.getConnectedDevices().length; i++) {
