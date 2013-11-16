@@ -29,17 +29,9 @@
 .selectable.refreshable .entry_content {
     margin-right: 60px;
 }
-.entry.selectable.one-action:hover{
-    background-color: rgba(225, 230, 50, 0.69);
-}
-.entry.togglable.one-action:hover{
-    background-color: rgba(225, 230, 50, 0.69);
-}
-.entry.selectable:not(.one-action) > div:hover {
-    background-color: rgba(225, 230, 50, 0.69);
-}
-.entry.togglable:not(.one-action) > div:hover {
-    background-color: rgba(225, 230, 50, 0.69);
+
+.highlight {
+    background-color: rgba(225, 230, 50, 0.69)
 }
 
 .lebel {
@@ -52,7 +44,7 @@
     width: 30px;
 }
 
-.togglable .btn {
+.togglable > .btn.select, .togglable > .btn.refresh, .selectable > .btn.refresh {
     border-left: 1px solid #7f7f7f;
     width: 29px;
 }
@@ -90,7 +82,7 @@
     display: none;
 }
 
-.list.opened {
+.list.open {
     display: block;
 }
 
@@ -100,7 +92,7 @@
     position: absolute;
     top: 50%;
 }
-.togglable, .selectable {
+.togglable, .selectable, .refreshable {
     cursor: pointer;
 }
 
@@ -185,7 +177,7 @@
 }
 
 .service .status {
-    background-image: url("images/api_red.png");
+    background-image: url("images/api_blue.png");
 }
 
 .service.online .status{
@@ -207,8 +199,8 @@
     /*right:44px;*/
 /*}*/
 
-.selectable.refreshable .refresh {
-    right:25px;
+.selectable.refreshable .select {
+    right:30px;
 }
 /*.togglable.refreshable .refresh {*/
     /*right:22px;*/
@@ -224,10 +216,14 @@
 
 .refresh {
     display: none !important;
+    right: 0px;
+}
+.refresh .icon {
+    /*display: none !important;*/
     width: 20px;
     height: 20px;
     margin-top: -10px;
-    right: 0px;
+    /*right: 0px;*/
     background-image: url("images/loop.png");
 }
 .refreshable .refresh {
