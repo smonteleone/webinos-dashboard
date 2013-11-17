@@ -17,8 +17,45 @@ explorer = (function () {
     return {
         init: function () {
             if (initialized) return;
+            $(document).on("mouseenter", ".entry > div", function(e){
+                var $div = $(this);
+                var $entry = $div.parent();
+                var entryAction = 0;
+                if ($entry.hasClass("togglable")){
+                    entryAction = 1;
+                }else if ($entry.hasClass("selectable")){
+                    entryAction = 2;
+                }else if ($entry.hasClass("refreshable")){
+                    entryAction = 3;
+                }
+                if (entryAction==0) return;
+                if ($div.hasClass("entry_content")){
+                    $div.toggleClass("highlight", true);
+                    if (entryAction == 2)
+                        $entry.children(".select").toggleClass("highlight", true);
+                    else if (entryAction == 3)
+                        $entry.children(".refresh").toggleClass("highlight", true);
+                }else if ($div.hasClass("select")){
+                    $div.toggleClass("highlight", true);
+                    if (entryAction == 2)
+                        $entry.children(".entry_content").toggleClass("highlight", true);
+                }else if ($div.hasClass("refresh")){
+                    $div.toggleClass("highlight", true);
+                    if (entryAction == 3)
+                        $entry.children(".entry_content").toggleClass("highlight", true);
+                }
+
+            });
+            $(document).on("mouseleave", ".entry > div", function(e){
+                var $div = $(this);
+                var $entry = $div.parent();
+                $entry.children(".highlight").toggleClass("highlight", false);
+            });
             $(document).on("click", ".selectable > .select", function(e){
                 explorer.selectMe.apply($(this).parent(), [e]);
+            });
+            $(document).on("click", ".refreshable > .refresh", function(e){
+                explorer.refreshMe.apply($(this).parent(), [e]);
             });
             $(document).on("click", ".entry", function(){
                 var $entry = $(this);
@@ -26,6 +63,8 @@ explorer = (function () {
                     explorer.toggleMyList.apply(this);
                 }else if ($entry.hasClass("selectable")){
                     explorer.selectMe.apply(this);
+                }else if ($entry.hasClass("refreshable")){
+                    explorer.refreshMe.apply(this);
                 }
             });
 
@@ -149,7 +188,7 @@ explorer = (function () {
             }
             if (options.show <= VIEW_STATES.devices){
                 var html = '';
-                html += '<div class="entry device ' + type + ' ' + device.deviceType + ' one-action" ' +
+                html += '<div class="entry device open ' + type + ' ' + device.deviceType + '" ' +
                     'data-type="device" ' +
                     'data-device-type="' + type + '" ' +
                     'id="' + device.id + '" ' +
@@ -175,18 +214,25 @@ explorer = (function () {
                     $entry.addClass("selectable");
                 }
 
-                html  = '<ul class="list" id="' + device.id + '_services"></ul>';
+                html  = '<ul class="list open" id="' + device.id + '_list"></ul>';
                 var $list = $(html);
 
-                $("[id='person_" + personId + "_devices']").append(
+                $("[id='person_" + personId + "_list']").append(
                     $(document.createElement('li'))
                         .append($entry)
                         .append($list));
 
+                if ($(".device.open").length>1){
+                    $(".device.open").each(function(){
+                        explorer.toggleEntry($(this).attr("id"), false);
+                    })
+                }
+
                 var $person = $("[id='person_" + personId + "']");
                 $person.toggleClass("togglable", true);
-                if (options.select == VIEW_STATES.people)
-                    $person.toggleClass("one-action", false);
+
+                if (options.show <= VIEW_STATES.services)
+                    $entry.addClass("refreshable");
             }
         },
         addPzh: function (pzh) {
@@ -198,7 +244,7 @@ explorer = (function () {
         addService: function (service) {
             var deviceId = service.serviceAddress;
             var html = '';
-            html += '<div class="entry service one-action" ' +
+            html += '<div class="entry service" ' +
                 'id="' + service.id + '" ' +
                 'data-type="service" ' +
                 'data-api="' + service.api + '" ' +
@@ -217,21 +263,22 @@ explorer = (function () {
             if (options.select == VIEW_STATES.services)
                 $entry.addClass("selectable");
 
-            $("[id='" + deviceId + "_services']").append(
+            $("[id='" + deviceId + "_list']").append(
                 $(document.createElement('li'))
                     .append($entry));
 
             var $device = $("[id='" + deviceId + "']");
             $device.toggleClass("togglable", true);
-            if (options.select == VIEW_STATES.devices)
-                $device.toggleClass("one-action", false);
         },
         addPerson: function (person) {
             var html = '';
-            html += '<div class="entry person one-action" ' +
+            html += '<div class="entry person open" ' +
                 'id="person_' + person.id + '" ' +
                 'data-type="person" ' +
                 'data-friendly-name="'+person.friendlyName.replace(/"/g, "&quot;")+'">';
+            html +=     '<div class="btn refresh">';
+            html +=         '<span class="icon"/>';
+            html +=     '</div>';
             html +=     '<div class="btn select">';
             html +=         '<span class="icon"/>';
             html +=     '</div>';
@@ -245,19 +292,61 @@ explorer = (function () {
             if (options.select == VIEW_STATES.people) {
                 $entry.addClass("selectable");
             }
+            if (options.show <= VIEW_STATES.services)
+                $entry.addClass("refreshable");
 
-            html  = '<ul class="list" id="person_' + person.id + '_devices"></ul>';
+            html  = '<ul class="list open" id="person_' + person.id + '_list"></ul>';
             var $list = $(html);
 
             $('#explorerView').append(
                 $(document.createElement('li'))
                     .append($entry)
                     .append($list));
+
+            if ($(".person.open").length>1){
+                $(".person.open").each(function(){
+                    explorer.toggleEntry($(this).attr("id"), false);
+                })
+            }
+        },
+        toggleEntry: function(id, stateVal) {
+            var $entry = $("[id='" + id + "']");
+            $entry.toggleClass("open", stateVal);
+            var $list = $("[id='" + id + "_list']");
+            $list.toggleClass("open", stateVal);
         },
         toggleMyList: function (event) {
             var $entry = $(this);
-            $entry.parentsUntil("#explorerView", "li").eq(0).children(".list").eq(0).toggleClass("opened");
-            $entry.toggleClass("open");
+//            $entry.parentsUntil("#explorerView", "li").eq(0).children(".list").eq(0).toggleClass("open");
+//            $entry.toggleClass("open");
+            explorer.toggleEntry($entry.attr("id"));
+            if (event)
+                event.stopPropagation();
+        },
+        refreshMe: function (event) {
+            var ids = [];
+            var $entry = $(this);
+            if ($entry.hasClass("device")){
+                var id = $entry.attr("id");
+                $entry.removeClass("togglable");
+                $("[id='" + id + "_list']").empty();
+                ids.push(id);
+            }else if ($entry.hasClass("person")){
+                $("[id='" + $entry.attr("id") + "_list'] .device").each(function(){
+                    var $entry = $(this);
+                    var id = $entry.attr("id");
+                    $entry.removeClass("togglable");
+                    $("[id='" + id + "_list']").empty();
+                    ids.push(id);
+                });
+            }
+            explorer.fillServices(
+                {},
+                {
+                    zoneId: ids,
+                    cache: false
+                }
+            );
             if (event)
                 event.stopPropagation();
         },
@@ -271,7 +360,9 @@ explorer = (function () {
             if (event)
                 event.stopPropagation();
         },
-        fillServices: function () {
+        fillServices: function (discoveryOptions, discoveryFilter) {
+            discoveryFilter = discoveryFilter || {};
+            discoveryOptions = discoveryOptions || {};
             console.debug("webinos explorer: calling service discovery");
             var searchFor = ($.isArray(options.service))?options.service : [options.service];
             for (var i=0; i<searchFor.length; i++){
@@ -285,7 +376,8 @@ explorer = (function () {
                         console.debug("***************");
                         explorer.addService(service);
                     }
-                });
+//                });
+                }, discoveryOptions, discoveryFilter);
             }
         }
     }
