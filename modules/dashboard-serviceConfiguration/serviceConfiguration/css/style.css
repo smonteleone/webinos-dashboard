@@ -1,6 +1,24 @@
+.arrayElement {border-top: 1px solid #7f7f7f;}
 .config {display : none}
-.expanderText {font-family:"Courier New", Courier, monospace;}
+.expanderControl {
+    background-image: url("../images/arrow_expand.png");
+    width: 20px;
+    margin-top: 4px;
+    left: 0px;
+    height: 20px;
+    float: left;
+}
+.expanderControl_collapse {
+    background-image: url("../images/arrow_collapse.png");
+    width: 20px;
+    margin-top: 4px;
+    left: 0px;
+    height: 20px;
+    float: left;
+}
 .hidden {display: none;}
 
-fieldset {padding:5px; border: 0px;}
-fieldset.border {border: 1px solid;}
+fieldset {padding: 0px; border: 0px;}
+fieldset.border {border: 1px solid #7f7f7f;}
+
+label {display: block;}
