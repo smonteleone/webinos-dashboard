@@ -368,7 +368,7 @@ function showPeopleForService(serviceId) {
                     console.log("\n\n\n\n" + $(this).attr('id'));
                     
                     setPolicy_ServiceForPeople(
-                        "macbookPro",
+                        $(this).attr("id"),
                         serviceId,
                         "disable",
                         function (){
@@ -381,7 +381,7 @@ function showPeopleForService(serviceId) {
                 } else if ($(this).attr("class") == "deny") {
                     var self = $(this);
                     setPolicy_ServiceForPeople(
-                        "macbookPro", 
+                        $(this).attr("id"), 
                         serviceId, 
                         "enable",
                         function () {
