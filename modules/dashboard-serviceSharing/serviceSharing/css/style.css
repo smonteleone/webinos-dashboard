@@ -22,3 +22,6 @@ fieldset {padding: 0px; border: 0px;}
 fieldset.border {border: 1px solid #7f7f7f;}
 
 label {display: block;}
+
+.allow {background: #AAFFAA}
+.deny {background: #FFAAAA}

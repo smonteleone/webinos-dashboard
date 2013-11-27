@@ -78,7 +78,7 @@ function setConfiguration(apiName, apiURI)
     var rootNode = document.getElementById(apiName);
     var config = '{' + getConfiguration(rootNode) + '}';
     console.log("Config: " + config);
-    webinos.configuration.setAPIServicesConfiguration(apiURI, JSON.parse(config).instances, successCB, errorCB);
+    webinos.configuration.setAPIServicesConfiguration(apiURI, JSON.parse(config).params.instances, successCB, errorCB);
 
 ////    config = config.replace(/,+/g, ",");
 //    alert(config);
@@ -107,7 +107,7 @@ function convert(refNode, refTemplate, refData, isNewArrayElement)
         switch (templateElement.type){
             case "text":
                 var label = document.createElement("label"); 
-                label.textContent = key + ":";
+                label.textContent = key;
                 if (templateElement.className && templateElement.className.indexOf("hidden") > -1) {
                     label.className = "hidden";
                 }
@@ -134,7 +134,7 @@ function convert(refNode, refTemplate, refData, isNewArrayElement)
 
             case "select":
                 var label = document.createElement("label"); 
-                label.textContent = key + ":";
+                label.textContent = key;
                 if (templateElement.className && templateElement.className.indexOf("hidden") > -1) {
                     label.className = "hidden";
                 }
@@ -207,7 +207,7 @@ function convert(refNode, refTemplate, refData, isNewArrayElement)
                     legend.textContent = templateElement.caption;
                     fieldset.appendChild(legend);
                 }
-                
+
                 var addButton = document.createElement("input");
                 addButton.type = "button";
                 addButton.value = "Add";
@@ -219,7 +219,8 @@ function convert(refNode, refTemplate, refData, isNewArrayElement)
 //                fieldset.appendChild(document.createElement("hr"));
 
                 if (dataElement && dataElement.length) {
-                    for(var i=0; i<dataElement.length; i++){ 
+                   // for(var i=0; i<dataElement.length; i++){
+                    for(var i = dataElement.length - 1; i >= 0; i--){
                         appendArrayElement(fieldset, templateElement.content, dataElement[i]);
                     }
                 }
@@ -241,7 +242,19 @@ function appendArrayElement(arrayRootNode, templateElement, dataElement){
         elementFieldset.remove();
     }
 
-    arrayRootNode.appendChild(convert(elementFieldset, templateElement, dataElement, true));
+    for (var i = 0 ; i < arrayRootNode.children.length; i++) {
+        if (arrayRootNode.children[i].type === "button" && arrayRootNode.children[i].value === "Add") {
+            if (i == arrayRootNode.children.length -1) {
+                arrayRootNode.appendChild(convert(elementFieldset, templateElement, dataElement, true));
+            } else {
+                arrayRootNode.insertBefore(convert(elementFieldset, templateElement, dataElement, true), arrayRootNode.children[i+1]);
+            }
+            break;
+        }
+    }
+
+//    arrayRootNode.appendChild(convert(elementFieldset, templateElement, dataElement, true));
+
     elementFieldset.appendChild(delButton);
  // elementFieldset.appendChild(document.createElement("hr"))
 }
@@ -253,7 +266,11 @@ function refresh(){
 
 function toggleDiv(div, togglingElement){
    $('#' + div).slideToggle();
-   $('#' + togglingElement).html($('#' + togglingElement).text() == "+"?"-":"+");
+   if ($('#' + togglingElement).attr('class') === 'expanderControl'){
+       $('#' + togglingElement).attr('class', 'expanderControl_collapse');
+   } else {
+       $('#' + togglingElement).attr('class', 'expanderControl');
+   }
 }
 
 function fillAPIsList(){
@@ -285,20 +302,20 @@ function fillAPIsList(){
             var html = [
                 "<br>"
               , "<h3 id='" + data[d].name + "_expander'>"
-              , "<span id='" + data[d].name + "_expanderText' class='expanderText'>+</span>"
+              , "<span id='" + data[d].name + "_expanderControl' class='expanderControl'>&nbsp;</span>"
               , data[d].name + "</h3>"
               , "<br>"
               , "<div id='" + data[d].name + "_config' class='config'/>"
                 ];
             $('#APIsData').append(html.join(""));
-            $('#'+ data[d].name + '_expander').click(toggleDiv.bind(this, data[d].name + "_config", data[d].name + "_expanderText"));
+            $('#'+ data[d].name + '_expander').click(toggleDiv.bind(this, data[d].name + "_config", data[d].name + "_expanderControl"));
 
 
             webinos.configuration.getAPIServicesConfiguration(data[d], fillConfigurationData, errorCB);
         }
     };
 
-    webinos.discovery.findConfigurableAPIs(params?params:"*", fillHeader, errorCB);
+    webinos.discovery.findConfigurableAPIs((params && params.apiURI) ? params.apiURI : "*", fillHeader, errorCB);
 } 
 
 var params = null;
@@ -309,7 +326,7 @@ $(document).ready(function(){
         webinos.dashboard.getData(
             function(tokenData){
                 params = tokenData;
-                console.log("***********************************" + params.apiURI + "******************************************");
+                console.log("***********************************" + JSON.stringify(params) + "******************************************");
                 refresh();
             },
             function(){
