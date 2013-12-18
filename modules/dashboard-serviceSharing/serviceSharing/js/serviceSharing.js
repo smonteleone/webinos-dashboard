@@ -429,6 +429,8 @@ var getPolicy_PeopleForServices = function() {
 
     webinos.discovery.findServices(new ServiceType('http://webinos.org/core/policymanagement'), {
         onFound: function(service) {
+            if(service.serviceAddress.indexOf(webinos.session.getPZPId()) == -1)
+                return;
             policyeditor = service;
             policyeditor.bindService({
                 onBind: function(service) {
@@ -485,6 +487,8 @@ var setPolicy_ServiceForPeople = function() {
 
     webinos.discovery.findServices(new ServiceType('http://webinos.org/core/policymanagement'), {
         onFound: function(service) {
+            if(service.serviceAddress.indexOf(webinos.session.getPZPId()) == -1)
+                return;
             policyeditor = service;
             policyeditor.bindService({
                 onBind: function(service) {
